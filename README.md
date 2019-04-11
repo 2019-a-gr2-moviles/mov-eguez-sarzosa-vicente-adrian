@@ -1,6 +1,17 @@
 # mov-eguez-sarzosa-vicente-adrianjmk
-Cambio 1
-Cambio Pepito 1
-Cambio Pepito 2
-Cambio Pepito 3
-Cambio Pepito 4
+
+## Configurar Zoom
+
+```
+> Preferencias
+    > Editor
+        > General
+            Activar zoom en la segunda opcion 
+```
+
+## Screenshot en MACos
+ 
+```
+$ cmd + shift + 4
+```
+
