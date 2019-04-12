@@ -80,6 +80,7 @@ fun main(args: Array<String>) {
     val notasDos = notas.map { nota ->
         val modulo = nota % 2
         val esPar = 0
+        /*  */
         when (modulo) {
             esPar -> {
                 nota + 1
@@ -88,11 +89,21 @@ fun main(args: Array<String>) {
                 nota + 2
             }
         }
+
+
     }
 
     notasDos.forEach {
         println("Notas 2: $it")
     }
+
+
+    val respuestaFilter = notas.filter {
+        it in 3..4
+        // it > 2 && it < 5
+    }
+
+    respuestaFilter.forEach { println(it) }
 
 
     // val fecha = Date()
