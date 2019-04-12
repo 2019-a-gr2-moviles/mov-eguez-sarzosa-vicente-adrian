@@ -122,9 +122,17 @@ fun main(args: Array<String>) {
 
     val tazos = arrayListOf(1,2,3,4,5,6,7)
 
-    tazos.all {
+    val respuestaTazos = tazos.all {
         it > 1
     }
+
+    println(respuestaTazos) // falso
+
+    val totalTazos = tazos.reduce { valorAcumulado, tazo ->
+        valorAcumulado + tazo
+    }
+    println(totalTazos)
+
 
     // val fecha = Date()
     // fecha.time = 11231231
