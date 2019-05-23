@@ -17,8 +17,6 @@ class Parcelable : AppCompatActivity() {
 
         val cachetes: Mascota? = this.intent
             .getParcelableExtra<Mascota>("mascota")
-
-
         Log.i("parcelable","Nombre ${adrian?.nombre}")
         Log.i("parcelable","Nombre ${adrian?.edad}")
         Log.i("parcelable","Nombre ${adrian?.fechaNacimiento.toString()}")
