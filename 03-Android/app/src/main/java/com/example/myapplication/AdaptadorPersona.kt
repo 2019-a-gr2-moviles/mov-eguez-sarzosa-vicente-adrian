@@ -23,18 +23,22 @@ class AdaptadorPersona(
         var accionBoton: Button
 
         init {
-            nombreTextView =  view.findViewById(R.id.txt_nombre) as TextView
-            cedulaTextView =  view.findViewById(R.id.txt_cedula) as TextView
-            accionBoton =  view.findViewById(R.id.btn_accion) as  Button
+            nombreTextView = view.findViewById(R.id.txt_nombre) as TextView
+            cedulaTextView = view.findViewById(R.id.txt_cedula) as TextView
+            accionBoton = view.findViewById(R.id.btn_accion) as Button
 
             val layout = view.findViewById(R.id.linear_layout) as LinearLayout
 
             layout
                 .setOnClickListener {
 
-                    Log.i("recycler-view","Layout presionado")
+                    Log.i("recycler-view", "Layout presionado")
 
                 }
+
+            accionBoton.setOnClickListener {
+                nombreTextView.text = "ME CAMBIAROOOOOOON!!! "
+            }
         }
 
     }
@@ -44,8 +48,10 @@ class AdaptadorPersona(
         return listaPersonas.size
     }
 
-    override fun onBindViewHolder(myViewHolder: AdaptadorPersona.MyViewHolder,
-                                  position: Int) {
+    override fun onBindViewHolder(
+        myViewHolder: AdaptadorPersona.MyViewHolder,
+        position: Int
+    ) {
 
         val persona = listaPersonas[position]
 
@@ -58,7 +64,8 @@ class AdaptadorPersona(
     // El template esta en la carpeta de res/layout
     override fun onCreateViewHolder(
         p0: ViewGroup,
-        p1: Int):
+        p1: Int
+    ):
             AdaptadorPersona.MyViewHolder {
         val itemView = LayoutInflater
             .from(p0.context)
