@@ -16,13 +16,15 @@ class ReciclerViewActivity : AppCompatActivity() {
         val recycler_view = rv_personas
         val actividad = this
 
-        lista.add(Persona("Adrian","171819134"))
-        lista.add(Persona("Vicente","0192839495"))
-        lista.add(Persona("Adrian","2003938182"))
+        lista.add(Persona("Adrian", "171819134"))
+        lista.add(Persona("Vicente", "0192839495"))
+        lista.add(Persona("Adrian", "2003938182"))
 
-        val adaptadorPersona = AdaptadorPersona(lista,
+        val adaptadorPersona = AdaptadorPersona(
+            lista,
             actividad,
-            recycler_view)
+            recycler_view
+        )
 
         rv_personas.adapter = adaptadorPersona
         rv_personas.itemAnimator = DefaultItemAnimator()
@@ -33,4 +35,7 @@ class ReciclerViewActivity : AppCompatActivity() {
 
     }
 
+    fun cambiarNombreTextView(texto: String) {
+        txv_titulo_rv.text = texto
+    }
 }

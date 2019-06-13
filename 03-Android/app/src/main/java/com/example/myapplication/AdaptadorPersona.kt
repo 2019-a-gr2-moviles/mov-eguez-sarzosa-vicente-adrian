@@ -38,6 +38,7 @@ class AdaptadorPersona(
 
             accionBoton.setOnClickListener {
                 nombreTextView.text = "ME CAMBIAROOOOOOON!!! "
+                contexto.cambiarNombreTextView("WOW!")
             }
         }
 
