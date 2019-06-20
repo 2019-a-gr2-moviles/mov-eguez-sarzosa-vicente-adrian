@@ -13,12 +13,16 @@ module.exports = {
     },
     nombre: {
       type: 'string',
-      required: true
+      required: true,
+      minLength: 3,
+      maxLength: 60,
     },
     cedula: {
       type: 'string',
       required: true,
-      unique: true
+      unique: true,
+      minLength: 10,
+      maxLength: 25,
     },
     username: {
       type: 'string',
@@ -46,7 +50,11 @@ module.exports = {
     },
     tipoUsuario: {
       type: 'string',
-      enums
+      enum: ['normal', 'pendiente', 'premium']
+    },
+    correo: {
+      type: 'string',
+      isEmail: true
     }
   },
 
