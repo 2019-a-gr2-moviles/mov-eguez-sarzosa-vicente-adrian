@@ -56,6 +56,11 @@ module.exports = {
       type: 'string',
       isEmail: true
     },
+    //  CONFIGURACION DEL HIJO
+    fkEmpresa: {  // Nombre del FK para la relacion
+      model: 'empresa', // Nombre del modelo a relacionar (papa)
+      // required: true // OPCIONAL -> Siempre ingresar el FK
+    },
     // CONFIGURACION DEL PAPA
     serviciosDeUsuario: { // Nombre atributo de la relacion
       collection: 'servicio', // Nombre del modelo a relacionar
