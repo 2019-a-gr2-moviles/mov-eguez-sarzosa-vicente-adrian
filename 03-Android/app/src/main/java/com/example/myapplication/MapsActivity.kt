@@ -1,9 +1,11 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,6 +24,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        solicitarPermisosLocalizacion()
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -52,6 +55,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     fun establecerConfiguracionMapa(mapa:GoogleMap){
         with(mapa){
+            mapa.isMyLocationEnabled = true
             this.uiSettings.isZoomControlsEnabled = true
             uiSettings.isMyLocationButtonEnabled = true
         }
@@ -68,7 +72,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if(tienePermiso){
             Log.i("mapa","Tiene permisos de FINE_LOCATION")
             this.tienePermisosLocalizacion = true
+        }else{
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                1  // Codigo que vamos a esperar
+            )
         }
+
 
     }
 }
