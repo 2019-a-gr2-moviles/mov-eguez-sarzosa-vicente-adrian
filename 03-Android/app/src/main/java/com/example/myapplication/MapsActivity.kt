@@ -12,10 +12,16 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(),
+    OnMapReadyCallback,
+    GoogleMap.OnCameraMoveStartedListener,
+    GoogleMap.OnCameraMoveListener,
+    GoogleMap.OnCameraIdleListener,
+    GoogleMap.OnPolylineClickListener,
+    GoogleMap.OnPolygonClickListener {
+
 
     private lateinit var mMap: GoogleMap
     private var tienePermisosLocalizacion = false
@@ -29,8 +35,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         solicitarPermisosLocalizacion()
 
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -49,12 +53,52 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         establecerConfiguracionMapa(mMap)
-
+        establecerListenersMovimientoMapa(mMap)
         val foch = LatLng(-0.202760, -78.490813)
         val titulo = "Plaza foch"
         val zoom = 17f
         anadirMarcador(foch, titulo)
         moverCamaraConZoom(foch, zoom)
+
+        val poliLineaUno = googleMap
+            .addPolyline(
+                PolylineOptions()
+                    .clickable(true)
+                    .add(
+                        LatLng(-0.210462, -78.493948),
+                        LatLng(-0.208218, -78.490163),
+                        LatLng(-0.208583, -78.488940),
+                        LatLng(-0.209377, -78.490303)
+                    )
+            )
+
+        val poligonoUno = googleMap
+            .addPolygon(
+                PolygonOptions()
+                    .clickable(true)
+                    .add(
+                        LatLng(-0.209431, -78.490078),
+                        LatLng(-0.208734, -78.488951),
+                        LatLng(-0.209431, -78.488286),
+                        LatLng(-0.210085, -78.489745)
+                    )
+            )
+        poligonoUno.fillColor = -0xc771c4
+
+
+
+
+    }
+
+    fun establecerListenersMovimientoMapa(map:GoogleMap){
+        with(map) {
+            setOnCameraIdleListener(this@MapsActivity)
+            setOnCameraMoveStartedListener(this@MapsActivity)
+            setOnCameraMoveListener(this@MapsActivity)
+
+            setOnPolylineClickListener(this@MapsActivity)
+            setOnPolygonClickListener(this@MapsActivity)
+        }
     }
 
     fun anadirMarcador(latLng: LatLng, title:String){
@@ -71,9 +115,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .newLatLngZoom(latLng, zoom)
         )
     }
-
-
-
 
     fun establecerConfiguracionMapa(mapa:GoogleMap){
         val contexto = this.applicationContext
@@ -115,4 +156,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
     }
+
+
+    override fun onCameraMove() {
+        Log.i("map","Me estoy moviendo")
+    }
+
+    override fun onCameraIdle() {
+        Log.i("map","Me quede quieto")
+    }
+
+    override fun onCameraMoveStarted(p0: Int) {
+        Log.i("map","Me voy a empezar a mover")
+    }
+
+    override fun onPolylineClick(p0: Polyline?) {
+        Log.i("map","Polylinea ${p0.toString()}")
+    }
+
+    override fun onPolygonClick(p0: Polygon?) {
+        Log.i("map","Polygono ${p0.toString()}")
+    }
+
+
 }
