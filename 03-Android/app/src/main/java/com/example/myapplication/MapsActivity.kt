@@ -24,6 +24,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        // 1) Que permisos necesita esta actividad
+        // 2) Revisar esos permisos
+
         solicitarPermisosLocalizacion()
 
 
@@ -47,15 +50,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         establecerConfiguracionMapa(mMap)
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-0.210047, -78.488574)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,17f))
+        val foch = LatLng(-0.202760, -78.490813)
+        val titulo = "Plaza foch"
+        val zoom = 17f
+        anadirMarcador(foch, titulo)
+        moverCamaraConZoom(foch, zoom)
     }
 
+    fun anadirMarcador(latLng: LatLng, title:String){
+        mMap.addMarker(
+            MarkerOptions()
+                .position(latLng)
+                .title(title)
+        )
+    }
+
+    fun moverCamaraConZoom(latLng: LatLng, zoom: Float = 10f){
+        mMap.moveCamera(
+            CameraUpdateFactory
+                .newLatLngZoom(latLng, zoom)
+        )
+    }
+
+
+
+
     fun establecerConfiguracionMapa(mapa:GoogleMap){
+        val contexto = this.applicationContext
         with(mapa){
-            mapa.isMyLocationEnabled = true
+
+            val permisoFineLocation = ContextCompat
+                .checkSelfPermission(
+                    contexto,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            val tienePermiso = permisoFineLocation == PackageManager.PERMISSION_GRANTED
+            if(tienePermiso){
+                mapa.isMyLocationEnabled = true
+            }
             this.uiSettings.isZoomControlsEnabled = true
             uiSettings.isMyLocationButtonEnabled = true
         }
@@ -67,12 +99,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 this.applicationContext,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
+
         val tienePermiso = permisoFineLocation == PackageManager.PERMISSION_GRANTED
 
         if(tienePermiso){
             Log.i("mapa","Tiene permisos de FINE_LOCATION")
             this.tienePermisosLocalizacion = true
-        }else{
+        } else {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(
@@ -81,7 +114,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 1  // Codigo que vamos a esperar
             )
         }
-
-
     }
 }
