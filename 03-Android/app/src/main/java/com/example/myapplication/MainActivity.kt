@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_parcelable.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +35,29 @@ class MainActivity : AppCompatActivity() {
         btn_mapa.setOnClickListener {
             irAMapa()
         }
+
+        btn_ciclo_vida.setOnClickListener {
+            irACicloDeVida()
+        }
+        btn_fragmento.setOnClickListener {
+            irAFragmento()
+        }
+    }
+
+    fun irAFragmento(){
+        val intentExplicito = Intent(
+            this,
+            FragmentosActivity::class.java
+        )
+        startActivity(intentExplicito)
+    }
+
+    fun irACicloDeVida(){
+        val intentExplicito = Intent(
+            this,
+            CicloVidaActivity::class.java
+        )
+        startActivity(intentExplicito)
     }
 
     fun irAMapa(){
